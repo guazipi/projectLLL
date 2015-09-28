@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>北京信息服务平台欢迎您！</title>
+
+    <!-- 引入css格式文件 -->
+    <link rel="stylesheet" href="css/LLLmain.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/theme/default/style.css">
+    <link rel="stylesheet" href="css/editing-panel.css" type="text/css">
+    <link rel="stylesheet" href="css/chatStyle.css"/>
+</head>
+<body>
+<script src="js/jquery-1.11.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/dragging.js"></script>
+<!---------------－－－---------------------------导航条-------------------------------------------->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand" id="navbarBrand">北京信息服务平台beta</a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-right">
+            <ul class="nav navbar-nav">
+                <li class="dropdown hidden-sm hidden-md">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" id="dropdownMenu1">找到TA
+                        <b
+                                class="caret"></b></a>
+                    <ul class="dropdown-menu" role="meun" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)"
+                                                   id="shortpathHref">最快到达</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0)"
+                                                   id="searcharoundHref">搜周边</a></li>
+                        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#"></a></li>-->
+                        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>-->
+                    </ul>
+                </li>
+                <li class="dropdown hidden-sm hidden-md">
+                    <a href="#uploadFile-div" data-toggle="modal">分享</a>
+                </li>
+                <li class="dropdown hidden-sm hidden-md">
+                    <a href="javascript:void(0)" aria-expanded="true" id="startChatHref">即时聊天</a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"
+                       id="dropdownMenu4">请登录</a>
+                    <ul class="dropdown-menu" id="lllllll" role="meun" aria-labelledby="dropdownMenu4"
+                        style="padding: 15px;min-width: 250px;">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form" role="form" method="post" enctype="multipart/form-data"
+                                          accept-charset="UTF-8"
+                                          id="login-nav">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputEmail2">邮箱地址</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail2"
+                                                   placeholder="请输入您的邮箱" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="exampleInputPassword2">密码</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword2"
+                                                   placeholder="请输入密码" required>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> 记住我
+                                            </label>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="#register-div" data-toggle="modal">没有账号？</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-success btn-block" id="logIn">进入
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right hidden-sm">
+                <li>
+                    <a href="#aboutus-div" data-toggle="modal">关于</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!---------------------------------------------------工具箱------------------------------------------->
+<!--------------------最短路径分析------------------->
+<div draggable="true" class="panel panel-primary toolbox_div" id="shortpath_div">
+    <div class="panel-heading">
+        <div class="panel-title">最短路径
+            <div class="btn-group pull-right">
+                <button type="button" class="close" id="closeshortpath" style="color: #f5f5f5">&times;</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" id="shortpath_body">
+        <h5>温馨提示：</h5>
+
+        <p>首次点击鼠标左键确定起点，再次点击鼠标左键确定终点，最短路径会自动出现。如果需进行下一次查询，请先点击清除路径按钮清除之前生成的最短路径。</p>
+
+        <div>
+            起点：<label id="startpoint"></label><br>
+            终点：<label id="endpoint"></label>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="clearshortpath">清除路径</button>
+    </div>
+    <!--<div class="panel-footer">-->
+
+    <!--</div>-->
+</div>
+
+<!--------------------最短路径分析------------------->
+
+<!--------------------搜周边------------------->
+<div class="panel panel-primary toolbox_div" id="searcharound_div">
+    <div class="panel-heading">
+        <div class="panel-title">搜周边
+            <div class="btn-group pull-right">
+                <button type="button" class="close" id="closesearcharound" style="color: #f5f5f5">&times;</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" id="searcharound_body">
+        <!--<h5>温馨提示：</h5>-->
+        <p style="font-size:large">温馨提示</p>
+
+        <p>点击鼠标左键确定中心点，更改搜索半径，默认为50米，点击查周边执行搜索操作，点击清除搜索结果按钮清除搜索结果。</p>
+
+        <div>
+            起点：<label id="centerpoint"></label><br>
+            搜索半径：<input id="searchRadius" type="search" value="500" required>(米)
+        </div>
+        <button id="actionsearcharound">查周边</button>
+        &nbsp;
+        <button id="clearsearcharound">清除搜索结果</button>
+    </div>
+    <!--<div class="panel-footer">-->
+
+    <!--</div>-->
+</div>
+<!--------------------搜周边------------------->
+<!-------------------------------------------------工具箱--------------------------------------->
+<!---------------------------------------------及时聊天----------------------------------------------->
+<div draggable="true" class="panel panel-primary toolbox_div" id="chatWrapper">
+    <div id="chatting-panel-heading" class="panel-heading">
+        <div class="panel-title">及时聊 :)
+            <div class="btn-group pull-right">
+                <button type="button" class="close" id="closeChat">&times;</button>
+            </div>
+            <div class="btn-group pull-center">
+                <span id="status"></span>
+            </div>
+        </div>
+    </div>
+    <div id="historyMsgWrapper">
+        <div id="historyMsg">
+        </div>
+    </div>
+    <div id="controlsWrapper">
+        <div class="controls">
+            <div class="items">
+                <input id="colorStyle" type="color" placeHolder='#000' title="font color"/>
+                <input id="emoji" type="button" value="emoji" title="emoji"/>
+                <label for="sendImage" class="imageLable">
+                    <input type="button" value="image"/>
+                    <input id="sendImage" type="file" value="image"/>
+                </label>
+                <input id="clearBtn" type="button" value="clear" title="clear screen"/>
+            </div>
+            <div id="emojiWrapper">
+            </div>
+        </div>
+        <div class="input">
+            <textarea id="messageInput" placeHolder="enter to send"></textarea>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+<!---------------------------------------------左边框----------------------------------------------->
+<div class="result_container_div" id="result_panel">
+    <div class="panel-heading" id="panel_heading_div">
+        <div class="panel-title">兴趣热点
+            <div id="close_panel" class="btn-group pull-right">
+                <button type="button" class="close">&times;</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" id="result_body_div">
+        <div id="catalog_div">
+            <ul>
+                <li class="result_catalog_item"><img src="img/hotel-32.png"/><a href="javascript:void(0)">饭店</a></li>
+                <li class="result_catalog_item"><img src="img/cinema-32.png"/><a href="javascript:void(0)">电影院</a></li>
+                <li class="result_catalog_item"><img src="img/bus_station-32.png"/><a href="javascript:void(0)">公交站</a>
+                </li>
+                <li class="result_catalog_item"><img src="img/rmb-32.png"/><a href="javascript:void(0)">银行</a></li>
+                <li class="result_catalog_item"><img src="img/shop-32.png"/><a href="javascript:void(0)">商店</a></li>
+                <li class="result_catalog_item"><img src="img/hospital-32.png"/><a href="javascript:void(0)">医院</a></li>
+                <li class="result_catalog_item"><img src="img/gasstation-32.png"/><a href="javascript:void(0)">加油站</a>
+                </li>
+                <li class="result_catalog_item"><img src="img/mail-32.png"/><a href="javascript:void(0)">邮局</a></li>
+                <li class="result_catalog_item"><img src="img/garden-32.png"/><a href="javascript:void(0)">公园</a></li>
+                <li class="result_catalog_item"><img src="img/Library-32.png"/><a href="javascript:void(0)">图书馆</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="panel-footer-revised" id="panel-footer-label">
+        <div id="clear_markers">清除搜索结果
+        </div>
+    </div>
+</div>
+<img src="img/show_button.png" id="pointer_icon" class="pointer_type">
+<!--------------------------------地图主体--------------------------------->
+<div id="mapContainer" class="mapContainer_div">
+    <!-------------------------搜索过渡层--------------------------->
+    <div id="screen" class="screen_display">
+        <div class="spinner">
+            <div class="spinner-container container1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container2">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container3">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+        </div>
+    </div>
+    <!-------------------------全景图图层--------------------------->
+    <div id="panorama" class="panorama-div"></div>
+    <div id="map-div_for_baidu" class="map-div-baidu"></div>
+    <div id="map-div" class="map-div-classical"></div>
+</div>
+<!-------------------------------------------地图主体------------------------------------------------>
+<!-------------------------------------------viewerBar--------------------------------------------->
+<div id="viewer-bar" class="viewer-bar-classic">
+    <div id="viewer-barsearch">
+        <input x-webkit-speech type="search" placeholder="请输入……" id="viewer-searchinput" required/>
+        <button type="button" id="viewer-searchbutton" class="btn btn-default">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+    </div>
+    <div id="viewer-barhome">
+        <button type="button" id="homeButton" class="btn btn-default">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        </button>
+    </div>
+    <button type="button" id="selectBaselayerButton" class="btn btn-default">
+        <img src="./img/imageryProviders/openStreetMap.png" id="selectimg" class="baseLayerPicker-selected">
+    </button>
+</div>
+<!--------------------------------全景图按钮--------------------------------->
+<div id="panorama-control" class="panoramapickerItem">
+    <img src="img/baidu_panorama.png" class="panoramaitemIcon" draggable="false">
+
+    <div id="panoramapickerLabel" class="panorama-label">全景</div>
+</div>
+<!--------------------底图选择div------------------->
+<div id="imageryProvider_div" class="baseLayerPicker-dropDown">
+    <div class="baseLayerPicker-sectionTitle">底图</div>
+    <div class="baseLayerPicker-choices">
+        <div class="baseLayerPicker-item" id="openstreetMap">
+            <img src="./img/imageryProviders/openStreetMap.png" class="baseLayerPicker-itemIcon" draggable="false">
+
+            <div class="baseLayerPicker-itemLabel">Open Street Map</div>
+        </div>
+        <div class="baseLayerPicker-item" id="tiandituImage">
+            <img src="./img/imageryProviders/bingAerial.png" class="baseLayerPicker-itemIcon" draggable="false">
+
+            <div class="baseLayerPicker-itemLabel">天地图影像</div>
+        </div>
+        <div class="baseLayerPicker-item" id="tiandituvec">
+            <img src="./img/imageryProviders/bingRoads.png" class="baseLayerPicker-itemIcon" draggable="false">
+
+            <div class="baseLayerPicker-itemLabel">天地图底图</div>
+        </div>
+
+        <div class="baseLayerPicker-item" id="esriImagery">
+            <img src="./img/imageryProviders/esriWorldImagery.png" class="baseLayerPicker-itemIcon" draggable="false">
+
+            <div class="baseLayerPicker-itemLabel">ESRI全球影像图</div>
+        </div>
+        <div class="baseLayerPicker-item" id="esriStreet">
+            <img src="./img/imageryProviders/esriWorldStreetMap.png" class="baseLayerPicker-itemIcon" draggable="false">
+
+            <div class="baseLayerPicker-itemLabel">ESRI全球街道图</div>
+        </div>
+    </div>
+
+</div>
+
+<!-----------------------------------------------------提示注册框----------------------------------------------->
+<div class="modal fade" id="register-div">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h3>注册</h3>
+
+                <p>请输入您的用户名、密码以及简要的个人信息！</p>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="registerForm" method="post">
+                    <!--Username-->
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">用户名：</label>
+
+                        <div class="col-sm-5">
+                            <input type="text" id="username" class="form-control" placeholder="请输入用户名"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ipassword" class="col-sm-2 control-label">密码：</label>
+
+                        <div class="col-sm-5">
+                            <input type="password" id="ipassword" class="form-control" placeholder="请输入密码"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="iemail" class="col-sm-2 control-label">邮箱：</label>
+
+                        <div class="col-sm-5">
+                            <input type="email" id="iemail" class="form-control" placeholder="请输入邮箱地址"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imessage" class="col-sm-2 control-label">个人介绍：</label>
+
+                        <div class="col-sm-5">
+                            <textarea id="imessage" class="form-control" rows="4" placeholder="介绍一下自己"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-default">重置</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="reg">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-------------------------------------------------文件上传------------------------------------------------>
+<div class="modal fade" id="uploadFile-div">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h3>文件上传</h3>
+
+                <p>选择一个矢量文件，点击上传</p>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" enctype="multipart/form-data" id="uplodFileForm" action="/uploadFile"
+                      method="post" target="post_frame">
+                    <iframe name='post_frame' id="post_frame" style="display:none"></iframe>
+                    <div class="form-group">
+                        <label for="filename" class="col-sm-2 control-label">用户名：</label>
+
+                        <div class="col-sm-5">
+                            <input type="file" id="filename" name="filename" class="form-control" placeholder="请选择文件"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="uploadFile">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-------------------------------------------------关于我们------------------------------------------------>
+<div class="modal fade" id="aboutus-div">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">关于我们</h4>
+            </div>
+            <div class="modal-body">
+                <p>中国科学院（Chinese Academy of Sciences），国家最高学术机构，中国自然科学与高新技术的综合研究与发展中心。
+                    中国科学院有6个学部（数学物理学部、化学部、生命科学和医学学部、地学部、信息技术科学部、技术科学部），12个分院（沈阳、长春、上海、南京、武汉、广州、成都、昆明、西安、兰州、新疆、重庆）、104家直属研究机构、4个国家实验室、85个国家重点实验室、153个中国科学院重点实验室、19个国家工程技术研究中心、10个国家工程实验室以及212个野外观测台站，3所高等学校、4个文献情报中心、3个技术支撑机构和2个新闻出版单位，全院科研人员达5万余人，分布在全国20多个省（市）。&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- 引入外部脚本语言 mapscript -->
+<!---********************很多js文件需要在所有的元素加载完之后才能加载使用**************************-->
+<script src="js/global.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/OpenLayers.js"></script>
+<script src="js/searcharound.js"></script>
+<script src="js/shortpath.js"></script>
+<script src="js/DeleteFeature.js"></script>
+<script src="js/EditingPanel.js"></script>
+<script src="js/changeBaselayer.js"></script>
+<script src="js/LLLmain.js"></script>
+<script src="js/searchresults.js"></script>
+<script src="socket.io/socket.io.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/Init.js"></script>
+<script src="js/registerAndLogin.js"></script>
+<script src="js/registerEvent.js"></script>
+<script src="js/uploadFile.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=iC4LbGl0Uk4II4TOLyNNIhc8"></script>
+<script src="js/baidumap.js"></script>
+<script src="js/leftside.js"></script>
+</body>
+</html>
